@@ -2,8 +2,10 @@ package floor
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"os/exec"
+	"time"
 )
 
 type DungeonFloor struct {
@@ -14,6 +16,8 @@ type DungeonFloor struct {
 
 func NewDungeonFloor() (*DungeonFloor, error) {
 	width, height := 20, 10
+	rand.Seed(time.Now().UnixNano())
+
 	grid := make([][]rune, height)
 	for i := range grid {
 		grid[i] = make([]rune, width)
@@ -31,34 +35,16 @@ func NewDungeonFloor() (*DungeonFloor, error) {
 		}
 	}
 
-	// First room vertical wall
-	grid[3][1] = '#'
-	grid[3][2] = '#'
-	grid[3][3] = '#'
-	grid[3][4] = '#'
+	for i := 1; i < height-1; i++ {
+		for j := 1; j < width-1; j++ {
+			if rand.Float64() < 0.3 {
+				grid[i][j] = '#'
+			}
+		}
+	}
 
-	// First room horizontal wall
-	grid[1][6] = '#'
-	grid[2][6] = '#'
-	grid[3][6] = '#'
-
-	// Second room vertical wall
-	grid[4][9] = '#'
-	grid[4][10] = '#'
-	grid[4][11] = '#'
-	grid[4][12] = '#'
-	grid[4][13] = '#'
-	grid[4][14] = '#'
-	grid[4][15] = '#'
-	grid[4][16] = '#'
-	grid[4][17] = '#'
-	grid[4][18] = '#'
-	grid[4][19] = '#'
-
-	// Second room horizontal wall
-	grid[5][9] = '#'
-	grid[6][9] = '#'
-	grid[8][9] = '#'
+	// Walkable starting position
+	grid[1][1] = '_'
 
 	return &DungeonFloor{grid, width, height}, nil
 }

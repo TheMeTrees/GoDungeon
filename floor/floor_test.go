@@ -12,8 +12,11 @@ func TestNewDungeonFloor(t *testing.T) {
 	if floor.Width != 20 || floor.Height != 10 {
 		t.Errorf("Expected 20x10 floor, got %dx%d", floor.Width, floor.Height)
 	}
-	if floor.grid[0][0] != '#' || floor.grid[1][1] != '_' {
-		t.Errorf("Map tiles incorrectly set")
+	if floor.grid[0][0] != '#' || floor.grid[0][19] != '#' || floor.grid[9][0] != '#' || floor.grid[9][19] != '#' {
+		t.Errorf("Edge tiles are not walls")
+	}
+	if floor.grid[1][1] != '_' {
+		t.Errorf("Starting position (1,1) is not walkable")
 	}
 	hasWalkable := false
 	for i := 0; i < floor.Height; i++ {
@@ -39,9 +42,8 @@ func TestIsWalkable(t *testing.T) {
 		x, y     int
 		expected bool
 	}{
-		{1, 1, true},    // Walkable floor
-		{0, 0, false},   // Wall
-		{6, 1, false},   // Internal wall
+		{1, 1, true},    // Ensured walkable by NewDungeonFloor
+		{0, 0, false},   // Wall (edge)
 		{-1, 0, false},  // Out of bounds
 		{10, 10, false}, // Out of bounds
 	}

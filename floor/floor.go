@@ -46,35 +46,6 @@ func NewDungeonFloor() (*DungeonFloor, error) {
 	// Walkable starting position
 	grid[1][1] = '_'
 
-	//// First room vertical wall
-	//grid[3][1] = '#'
-	//grid[3][2] = '#'
-	//grid[3][3] = '#'
-	//grid[3][4] = '#'
-	//
-	//// First room horizontal wall
-	//grid[1][6] = '#'
-	//grid[2][6] = '#'
-	//grid[3][6] = '#'
-	//
-	//// Second room vertical wall
-	//grid[4][9] = '#'
-	//grid[4][10] = '#'
-	//grid[4][11] = '#'
-	//grid[4][12] = '#'
-	//grid[4][13] = '#'
-	//grid[4][14] = '#'
-	//grid[4][15] = '#'
-	//grid[4][16] = '#'
-	//grid[4][17] = '#'
-	//grid[4][18] = '#'
-	//grid[4][19] = '#'
-	//
-	//// Second room horizontal wall
-	//grid[5][9] = '#'
-	//grid[6][9] = '#'
-	//grid[8][9] = '#'
-
 	return &DungeonFloor{grid, width, height}, nil
 }
 
